@@ -1,0 +1,61 @@
+.requests {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    border-radius: 20px;
+    background-color: #333864a4;
+
+    h1 {
+        margin: 10px 50px 10px 50px;
+    }
+
+    ul {
+        margin: 0 50px;
+        padding: 0;
+        max-height: 300px;
+        width: 400px;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        &:hover {
+            overflow-y: scroll;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            border-bottom: solid 1px white;
+            height: 100px;
+            padding: 0;
+            p {
+                margin: 5px 0;
+            }
+
+            .details {
+                margin-right: 20px;
+            }
+
+            .actions {
+                margin-left: 20px;
+                width: 60px;
+                p {
+                    cursor: default;
+                    padding: 5px;
+                    width: fit-content;
+                    margin: 0;
+                    &:hover {
+                        background-color: rgba(221, 221, 221, 0.3);
+                        border-radius: 5px;
+                    }
+                }
+
+                div {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    filter: invert(63%) sepia(90%) saturate(3401%)
+                        hue-rotate(82deg) brightness(116%) contrast(126%);
+                }
+            }
+        }
+    }
+}

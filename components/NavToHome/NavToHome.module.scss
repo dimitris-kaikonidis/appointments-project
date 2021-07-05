@@ -1,0 +1,18 @@
+.nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+
+    .home {
+        padding: 5px;
+        margin: 0 5px;
+        &:hover {
+            background-color: rgba(221, 221, 221, 0.3);
+            border-radius: 5px;
+        }
+    }
+}
