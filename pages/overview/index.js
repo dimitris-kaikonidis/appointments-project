@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { getSchedule } from "../../db/index";
+import { getSchedule, getRequests, getBookingsBusiness } from "../../db/index";
 import DatePicker from "react-datepicker";
 import MultiSelect from "react-multi-select-component";
+import { format } from "date-fns";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { withIronSession } from "next-iron-session";
@@ -12,6 +13,7 @@ import WhiteBorder from "../../components/WhiteBorder/WhiteBorder";
 import Requests from "../../components/Requests/Requests";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "../../styles/Overview.module.scss";
+import Appointments from "../../components/Appointments/Appointments";
 
 export default function Overview(props) {
     const router = useRouter();
@@ -26,6 +28,7 @@ export default function Overview(props) {
     const [selectedWeekDays, setSelectedWeekDays] = useState([]);
     const [selectedWeekDaysNums, setSelectedWeekDaysNums] = useState([]);
     const [scheduleVis, setScheduleVis] = useState(false);
+    const [requestsVis, setRequestsVis] = useState(false);
 
     const weekdays = [
         { label: "Sunday", value: 0 },
@@ -68,7 +71,14 @@ export default function Overview(props) {
     }, [selectedWeekDays]);
 
     const logout = async () => await axios.post("/api/logout");
-    const toggleVis = () => setScheduleVis(!scheduleVis);
+    const toggleSchedule = () => {
+        setRequestsVis(false);
+        setScheduleVis(!scheduleVis);
+    };
+    const toggleRequests = () => {
+        setScheduleVis(false);
+        setRequestsVis(!requestsVis);
+    };
 
     return (
         <>
@@ -78,8 +88,9 @@ export default function Overview(props) {
                 <Link href="/">Logout</Link>
             </div>
             <div className={styles.toggle}>
-                <p onClick={toggleVis}>Schedule</p>
+                <p onClick={toggleSchedule}>Schedule</p>
                 <WhiteBorder />
+                <p onClick={toggleRequests}>Requests</p>
             </div>
             {scheduleVis && (
                 <div className={styles.schedule}>
@@ -121,11 +132,15 @@ export default function Overview(props) {
                     <button onClick={saveChanges}>Save</button>
                 </div>
             )}
+            {requestsVis && (
+                <div className={styles.requests}>
+                    <div className={styles.arrowup}></div>
+                    <Requests requests={props.requests} />
+                </div>
+            )}
             <div className={styles.overview}>
                 <Info user={props.user} />
-                <div className={styles.actions}>
-                    <Requests user={props.user} />
-                </div>
+                <Appointments bookings={props.bookings} />
             </div>
         </>
     );
@@ -143,17 +158,41 @@ export const getServerSideProps = withIronSession(
             };
         } else {
             try {
-                const result = await getSchedule(user.id);
-                delete result.rows[0].created_at;
+                const scheduleResult = await getSchedule(user.id);
+                delete scheduleResult.rows[0].created_at;
+
+                const requestResult = await getRequests(user.name);
+                const requests = requestResult.rows.map((request) => {
+                    const time = format(
+                        new Date(request.created_at),
+                        "HH:mm dd/MM/yy"
+                    );
+                    request.created_at = time;
+                    return request;
+                });
+
+                const bookingsResult = await getBookingsBusiness(user.name);
+                const bookings = bookingsResult.rows.map((booking) => {
+                    const time = format(
+                        new Date(booking.created_at),
+                        "HH:mm dd/MM/yy"
+                    );
+                    booking.created_at = time;
+                    return booking;
+                });
+
                 return {
                     props: {
                         user,
-                        schedule: { ...result.rows[0] },
+                        schedule: { ...scheduleResult.rows[0] },
+                        requests,
+                        bookings,
                     },
                 };
             } catch (error) {
+                console.log(error);
                 return {
-                    props: { user },
+                    props: { user, schedule: {}, requests: [], bookings: [] },
                 };
             }
         }

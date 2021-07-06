@@ -1,4 +1,4 @@
-import { getRequests, updateRequest } from "../../db/index";
+import { updateRequest } from "../../db/index";
 import { sendEmail } from "../../utils/SES";
 import { sendSMS } from "../../utils/SNS";
 import randomstring from "randomstring";
@@ -9,17 +9,6 @@ import { SESSION_SECRET } from "../../secrets.json";
 const email = process.env.myEmail || myEmail;
 
 async function handler(req, res) {
-    if (req.method === "GET") {
-        const { name } = req.session.get("user");
-        try {
-            const response = await getRequests(name);
-            res.status(200).json(response.rows);
-        } catch (error) {
-            console.log(error);
-            res.status(400).json();
-        }
-    }
-
     if (req.method === "POST") {
         const { id, status } = req.body;
         try {

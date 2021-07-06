@@ -5,22 +5,7 @@ import Image from "next/image";
 import WhiteBorder from "../WhiteBorder/WhiteBorder";
 import styles from "./Requests.module.scss";
 
-export default function Requests() {
-    const [requests, setRequests] = useState([]);
-
-    useEffect(() => {
-        const call = async () => {
-            try {
-                const response = await axios.get("/api/requests");
-                setRequests(response.data);
-            } catch (error) {
-                setRequests([]);
-            }
-        };
-        call();
-        setInterval(call, 30000);
-    }, []);
-
+export default function Requests({ requests }) {
     const confirm = (id) => {
         try {
             axios.post("/api/requests", { id, status: "confirmed" });
@@ -102,7 +87,7 @@ export default function Requests() {
                     })}
                 </ul>
             </div>
-            <WhiteBorder />
+            {/* <WhiteBorder />
             <div>
                 <h1>Confirmed Requests</h1>
                 <ul>
@@ -131,7 +116,7 @@ export default function Requests() {
                         );
                     })}
                 </ul>
-            </div>
+            </div> */}
         </div>
     );
 }

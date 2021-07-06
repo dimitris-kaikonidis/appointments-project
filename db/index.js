@@ -67,6 +67,9 @@ module.exports.makeBooking = (business_name, phone, email, name, date) =>
 module.exports.getBookings = (name) =>
     db.query(`SELECT date FROM bookings WHERE business_name = $1;`, [name]);
 
+module.exports.getBookingsBusiness = (name) =>
+    db.query(`SELECT * FROM bookings WHERE business_name = $1;`, [name]);
+
 module.exports.getRequests = (name) =>
     db.query(`SELECT * FROM bookings WHERE business_name = $1;`, [name]);
 
