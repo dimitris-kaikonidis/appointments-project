@@ -1,5 +1,6 @@
 import { getRequests, updateRequest } from "../../db/index";
 import { sendEmail } from "../../utils/SES";
+import { sendSMS } from "../../utils/SNS";
 import randomstring from "randomstring";
 import { myEmail } from "../../secrets.json";
 import { withIronSession } from "next-iron-session";
@@ -30,6 +31,7 @@ async function handler(req, res) {
                     "Verification Code",
                     `You booking is now confirmed. \nVerification Code: ${verificationCode}`
                 );
+                // sendSMS(verificationCode);
             }
             res.status(200).json();
         } catch (error) {

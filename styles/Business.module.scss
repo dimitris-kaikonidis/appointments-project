@@ -53,5 +53,12 @@
         border-radius: 5px;
         border: none;
         padding: 10px;
+        border: solid 2px rgb(80, 67, 150);
+
+        &:hover {
+            background-color: rgba(203, 147, 255, 0.493);
+            color: white;
+            border-color: white;
+        }
     }
 }

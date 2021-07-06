@@ -9,14 +9,16 @@ export default function Requests() {
     const [requests, setRequests] = useState([]);
 
     useEffect(() => {
-        (async () => {
+        const call = async () => {
             try {
                 const response = await axios.get("/api/requests");
                 setRequests(response.data);
             } catch (error) {
                 setRequests([]);
             }
-        })();
+        };
+        call();
+        setInterval(call, 30000);
     }, []);
 
     const confirm = (id) => {
@@ -74,14 +76,14 @@ export default function Requests() {
                                                     confirm(request.id)
                                                 }
                                             >
-                                                Confirm
+                                                Confirm ✔️
                                             </p>
                                             <p
                                                 onClick={() =>
                                                     reject(request.id)
                                                 }
                                             >
-                                                Reject
+                                                Reject &nbsp;&nbsp;&nbsp;❌
                                             </p>
                                         </>
                                     ) : (

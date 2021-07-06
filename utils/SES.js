@@ -14,7 +14,7 @@ const ses = new aws.SES({
     region: "eu-central-1",
 });
 
-module.exports.sendEmail = (recipient, subject, message) => {
+export const sendEmail = (recipient, subject, message) => {
     ses.sendEmail({
         Source: email,
         Destination: {

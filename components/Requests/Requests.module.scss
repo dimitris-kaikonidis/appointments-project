@@ -1,24 +1,26 @@
 .requests {
+    position: relative;
     display: flex;
     align-items: center;
     list-style-type: none;
     border-radius: 20px;
     background-color: #333864a4;
+    overflow: hidden;
 
     h1 {
         margin: 10px 50px 10px 50px;
+        position: absolute;
+        top: 10px;
     }
 
     ul {
         margin: 0 50px;
+        margin-top: 60px;
         padding: 0;
+        height: 200px;
         max-height: 300px;
         width: 400px;
-        overflow-y: hidden;
-        overflow-x: hidden;
-        &:hover {
-            overflow-y: scroll;
-        }
+        overflow-y: auto;
 
         li {
             display: flex;
@@ -36,7 +38,7 @@
 
             .actions {
                 margin-left: 20px;
-                width: 60px;
+                width: 100px;
                 p {
                     cursor: default;
                     padding: 5px;
