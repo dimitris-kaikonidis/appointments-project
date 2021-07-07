@@ -6,14 +6,16 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { withIronSession } from "next-iron-session";
-import { SESSION_SECRET } from "../../secrets.json";
 import axios from "axios";
 import Info from "../../components/Info/Info";
 import WhiteBorder from "../../components/WhiteBorder/WhiteBorder";
 import Requests from "../../components/Requests/Requests";
+import Appointments from "../../components/Appointments/Appointments";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "../../styles/Overview.module.scss";
-import Appointments from "../../components/Appointments/Appointments";
+
+const SESSION_SECRET =
+    process.env.SESSION_SECRET || require("../../secrets.json").SESSION_SECRET;
 
 export default function Overview(props) {
     const router = useRouter();

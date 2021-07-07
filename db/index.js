@@ -7,7 +7,14 @@ const params = {
     port: 5432,
 };
 
-const db = new Pool(params);
+// const db = new Pool(params);
+
+const db = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false,
+    },
+});
 
 module.exports.addBusiness = (name, email, phone, password) =>
     db.query(

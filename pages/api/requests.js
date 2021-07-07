@@ -4,7 +4,8 @@ import { sendSMS } from "../../utils/SNS";
 import randomstring from "randomstring";
 import { myEmail } from "../../secrets.json";
 import { withIronSession } from "next-iron-session";
-import { SESSION_SECRET } from "../../secrets.json";
+const SESSION_SECRET =
+    process.env.SESSION_SECRET || require("../secrets.json").SESSION_SECRET;
 
 const email = process.env.myEmail || myEmail;
 

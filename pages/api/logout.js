@@ -1,5 +1,6 @@
 import { withIronSession } from "next-iron-session";
-import { SESSION_SECRET } from "../../secrets.json";
+const SESSION_SECRET =
+    process.env.SESSION_SECRET || require("../secrets.json").SESSION_SECRET;
 
 function handler(req, res, session) {
     req.session.destroy();

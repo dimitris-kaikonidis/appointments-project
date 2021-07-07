@@ -1,7 +1,5 @@
 import aws from "aws-sdk";
-import { myEmail } from "../secrets.json";
-
-const email = process.env.myEmail || myEmail;
+const email = process.env.myEmail || require("../secrets.json").myEmail;
 
 const secrets =
     process.env.NODE_ENV === "production"
