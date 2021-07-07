@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -87,36 +86,6 @@ export default function Requests({ requests }) {
                     })}
                 </ul>
             </div>
-            {/* <WhiteBorder />
-            <div>
-                <h1>Confirmed Requests</h1>
-                <ul>
-                    {requests.map((request) => {
-                        if (request.status !== "confirmed") return;
-                        const time = format(
-                            new Date(request.created_at),
-                            "HH:mm dd/MM/yy"
-                        );
-                        return (
-                            <li key={request.id}>
-                                <div className={styles.details}>
-                                    <p>
-                                        Request by {request.name} - {time}
-                                    </p>
-                                    <div>
-                                        <p>Email: {request.email}</p>
-                                        <p>Phone: {request.phone}</p>
-                                    </div>
-                                </div>
-                                <WhiteBorder />
-                                <div className={styles.actions}>
-                                    <p>{request.code}</p>
-                                </div>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div> */}
         </div>
     );
 }
