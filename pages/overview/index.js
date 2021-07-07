@@ -14,8 +14,7 @@ import Appointments from "../../components/Appointments/Appointments";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "../../styles/Overview.module.scss";
 
-const SESSION_SECRET =
-    process.env.SESSION_SECRET || require("../../secrets.json").SESSION_SECRET;
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 export default function Overview(props) {
     const router = useRouter();

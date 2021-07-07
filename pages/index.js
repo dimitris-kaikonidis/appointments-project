@@ -7,7 +7,6 @@ import { withIronSession } from "next-iron-session";
 import styles from "../styles/Home.module.scss";
 
 const SESSION_SECRET = process.env.SESSION_SECRET;
-//|| require("../secrets.json").SESSION_SECRET;
 
 export default function Home() {
     return (

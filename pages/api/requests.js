@@ -2,12 +2,8 @@ import { updateRequest } from "../../db/index";
 import { sendEmail } from "../../utils/SES";
 import { sendSMS } from "../../utils/SNS";
 import randomstring from "randomstring";
-import { myEmail } from "../../secrets.json";
 import { withIronSession } from "next-iron-session";
 const SESSION_SECRET = process.env.SESSION_SECRET;
-// || require("../secrets.json").SESSION_SECRET;
-
-const email = process.env.myEmail || myEmail;
 
 async function handler(req, res) {
     if (req.method === "POST") {
@@ -17,7 +13,7 @@ async function handler(req, res) {
                 const verificationCode = randomstring.generate(5);
                 updateRequest(id, status, verificationCode);
                 sendEmail(
-                    email,
+                    process.env.myEmail,
                     "Verification Code",
                     `You booking is now confirmed. \nVerification Code: ${verificationCode}`
                 );
