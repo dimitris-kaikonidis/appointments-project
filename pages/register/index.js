@@ -24,6 +24,7 @@ export default function Register() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const { name, email, phone, password } = inputs;
+        console.log(name, email, phone, password);
         if (!name || !email || !phone || !password) return;
         else {
             try {

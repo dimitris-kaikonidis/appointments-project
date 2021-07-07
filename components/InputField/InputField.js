@@ -9,7 +9,7 @@ export default function InputField(props) {
         setState({ [props.name]: event.target.value });
     useEffect(
         () => props.handleInput(props.name, state[props.name]),
-        [props, state]
+        [props.name, state]
     );
 
     const { name, type, value, label, loading, handleBlur, handleFocus } =
