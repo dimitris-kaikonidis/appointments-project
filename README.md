@@ -1,5 +1,7 @@
 ### Appointments App
 
+#### Check out on heroku https://appointments-project.vercel.app/
+
 #### Functionalities:
 
 -   Business Register Account
