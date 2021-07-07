@@ -1,8 +1,8 @@
 import { withIronSession } from "next-iron-session";
 import { findBusiness } from "../../db/index";
 import { compare } from "../../utils/bcrypt";
-const SESSION_SECRET =
-    process.env.SESSION_SECRET || require("../secrets.json").SESSION_SECRET;
+const SESSION_SECRET = process.env.SESSION_SECRET;
+//   || require("../secrets.json").SESSION_SECRET;
 
 async function handler(req, res) {
     if (req.method === "POST") {
