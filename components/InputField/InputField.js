@@ -7,7 +7,10 @@ export default function InputField(props) {
 
     const handleChange = (event) =>
         setState({ [props.name]: event.target.value });
-    useEffect(() => props.handleInput(props.name, state[props.name]), [state]);
+    useEffect(
+        () => props.handleInput(props.name, state[props.name]),
+        [props, state]
+    );
 
     const { name, type, value, label, loading, handleBlur, handleFocus } =
         props;
