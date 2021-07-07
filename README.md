@@ -1,6 +1,6 @@
 ### Appointments App
 
-#### Check out on heroku https://appointments-project.vercel.app/
+#### Check out on vercel https://appointments-project.vercel.app/
 
 #### Functionalities:
 
