@@ -5,19 +5,21 @@ import WhiteBorder from "../WhiteBorder/WhiteBorder";
 import styles from "./Requests.module.scss";
 
 export default function Requests({ requests, changeVis }) {
-    const confirm = (id) => {
+    const confirm = async (id) => {
         changeVis();
         try {
-            axios.post("/api/requests", { id, status: "confirmed" });
+            await axios.post("/api/requests", { id, status: "confirmed" });
+            location.reload();
         } catch (error) {
             location.reload();
         }
     };
 
-    const reject = (id) => {
+    const reject = async (id) => {
         changeVis();
         try {
-            axios.post("/api/requests", { id, status: "rejected" });
+            await axios.post("/api/requests", { id, status: "rejected" });
+            location.reload();
         } catch (error) {
             location.reload();
         }
