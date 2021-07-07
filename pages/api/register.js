@@ -17,7 +17,7 @@ async function handler(req, res) {
                 hashedPassword
             );
             const { id } = response.rows[0];
-            req.session.set("user", { id });
+            req.session.set("user", { id, name, email, phone });
             await req.session.save();
             res.status(200).json({ id });
         } catch (error) {

@@ -57,11 +57,14 @@ export default function Overview(props) {
             id: props.user.id,
         };
         try {
+            setScheduleVis(false);
             await axios.post("/api/schedule", schedule);
         } catch (error) {
             router.reload();
         }
     };
+
+    useEffect(() => setInterval(() => router.reload(), 30000), []);
 
     useEffect(() => {
         if (selectedWeekDays.length) {
@@ -130,13 +133,18 @@ export default function Overview(props) {
                             className={styles.rmsc}
                         />
                     </div>
-                    <button onClick={saveChanges}>Save</button>
+                    <button className={styles.saveButton} onClick={saveChanges}>
+                        Save
+                    </button>
                 </div>
             )}
             {requestsVis && (
                 <div className={styles.requests}>
                     <div className={styles.arrowup}></div>
-                    <Requests requests={props.requests} />
+                    <Requests
+                        requests={props.requests}
+                        changeVis={toggleRequests}
+                    />
                 </div>
             )}
             <div className={styles.overview}>
@@ -160,7 +168,9 @@ export const getServerSideProps = withIronSession(
         } else {
             try {
                 const scheduleResult = await getSchedule(user.id);
-                delete scheduleResult.rows[0].created_at;
+                scheduleResult.rows[0] &&
+                    scheduleResult.rows[0].created_at &&
+                    delete scheduleResult.rows[0].created_at;
 
                 const requestResult = await getRequests(user.name);
                 const requests = requestResult.rows.map((request) => {

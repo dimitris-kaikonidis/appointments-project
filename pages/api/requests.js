@@ -1,4 +1,4 @@
-import { updateRequest } from "../../db/index";
+import { updateRequest, deleteRequest } from "../../db/index";
 import { sendEmail } from "../../utils/SES";
 import { sendSMS } from "../../utils/SNS";
 import randomstring from "randomstring";
@@ -18,6 +18,8 @@ async function handler(req, res) {
                     `You booking is now confirmed. \nVerification Code: ${verificationCode}`
                 );
                 // sendSMS(verificationCode);
+            } else if (status === "rejected") {
+                deleteRequest(id);
             }
             res.status(200).json();
         } catch (error) {

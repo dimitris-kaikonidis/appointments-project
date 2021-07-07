@@ -4,29 +4,23 @@ import Image from "next/image";
 import WhiteBorder from "../WhiteBorder/WhiteBorder";
 import styles from "./Requests.module.scss";
 
-export default function Requests({ requests }) {
+export default function Requests({ requests, changeVis }) {
     const confirm = (id) => {
+        changeVis();
         try {
             axios.post("/api/requests", { id, status: "confirmed" });
         } catch (error) {
             location.reload();
         }
-        const updatedStatus = requests.map((request) => {
-            if (request.id === id) {
-                return { ...request, status: "confirmed" };
-            } else return request;
-        });
-        setRequests(updatedStatus);
     };
 
     const reject = (id) => {
+        changeVis();
         try {
             axios.post("/api/requests", { id, status: "rejected" });
         } catch (error) {
             location.reload();
         }
-        const updatedStatus = requests.filter((request) => request.id !== id);
-        setRequests(updatedStatus);
     };
 
     return (

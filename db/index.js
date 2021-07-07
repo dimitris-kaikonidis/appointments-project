@@ -7,14 +7,14 @@ const params = {
     port: 5432,
 };
 
-// const db = new Pool(params);
+const db = new Pool(params);
 
-const db = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false,
-    },
-});
+// const db = new Pool({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: {
+//         rejectUnauthorized: false,
+//     },
+// });
 
 module.exports.addBusiness = (name, email, phone, password) =>
     db.query(
@@ -42,7 +42,7 @@ module.exports.getBusinessInfo = (name) =>
     db.query(
         `
         SELECT business_id, name, email, phone, start, finish, daysOff FROM businesses 
-        JOIN schedules 
+        LEFT JOIN schedules 
         ON (businesses.id = schedules.business_id)
         WHERE name = $1;
         `,
@@ -86,3 +86,6 @@ module.exports.updateRequest = (id, status, code = "") =>
         status,
         code,
     ]);
+
+module.exports.deleteRequest = (id) =>
+    db.query(`DELETE FROM bookings WHERE id = $1`, [id]);

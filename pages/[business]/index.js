@@ -20,6 +20,7 @@ export default function Business() {
 
     const filterWeekDays = (date) => {
         const day = date.getDay();
+        if (!info.daysoff) return true;
         return (
             day !== info.daysoff[0] &&
             day !== info.daysoff[1] &&
